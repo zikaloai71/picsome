@@ -1,2 +1,3 @@
-# picsome
-React appilication for viewing and ordering different pics
+# pic some
+
+React application for viewing and ordering different pics
