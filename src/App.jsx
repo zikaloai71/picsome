@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
      <Header />
       <Routes>
-        <Route path="/" element={<Photos />}/>
+        <Route exact path="/" element={<Photos />}/>
         <Route path="/cart" element={<Cart/>}/>
       </Routes>
     </BrowserRouter>
