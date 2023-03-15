@@ -4,7 +4,7 @@ const AppContext = React.createContext();
 
 function AppContextProvider(props) {
   const[allPhotos,setAllPhotos]=useState([]);
-  
+  const[cartItems,setCartItems]=useState([])
   const url = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
 
   useEffect(()=>{
@@ -14,7 +14,15 @@ function AppContextProvider(props) {
 
   },[])
 
-
+  function toggleCart(img , isOrdered){
+    if(isOrdered){
+     setCartItems(prevItems => prevItems.filter(item=> item.id !== img.id))
+    }
+    else{
+      setCartItems(prevItem=>[...prevItem,img])
+    }
+  }
+  
   function toggleFavorite(id){
     const updatedArr = allPhotos.map(photo => {
       if(photo.id === id) {
@@ -29,7 +37,7 @@ function AppContextProvider(props) {
   }
 
   return (
-    <AppContext.Provider value={{allPhotos , toggleFavorite}}>
+    <AppContext.Provider value={{allPhotos , toggleFavorite ,toggleCart , cartItems}}>
         {props.children}
     </AppContext.Provider>
   )
