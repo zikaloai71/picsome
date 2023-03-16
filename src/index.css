@@ -155,3 +155,6 @@ div.order-button > button:disabled {
     margin-right: auto;
     margin-left: 10px;   
 }
+.bigFontTrash{
+    font-size: 1.5rem;
+}

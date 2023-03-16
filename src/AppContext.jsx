@@ -22,7 +22,11 @@ function AppContextProvider(props) {
       setCartItems(prevItem=>[...prevItem,img])
     }
   }
-  
+
+  function emptyCart(){
+    setCartItems([]);
+  }
+
   function toggleFavorite(id){
     const updatedArr = allPhotos.map(photo => {
       if(photo.id === id) {
@@ -37,7 +41,7 @@ function AppContextProvider(props) {
   }
 
   return (
-    <AppContext.Provider value={{allPhotos , toggleFavorite ,toggleCart , cartItems}}>
+    <AppContext.Provider value={{allPhotos , toggleFavorite ,toggleCart , cartItems ,emptyCart}}>
         {props.children}
     </AppContext.Provider>
   )
