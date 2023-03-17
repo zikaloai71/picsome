@@ -1,8 +1,19 @@
 version: '3.8'
 services:
+  # picsome:
+  #   build: .
+  #   ports:
+  #     - '3000:3000'
+  #   volumes:
+  #       - ./:/picsome
+
   picsome:
-    build: .
-    ports:
-      - '3000:3000'
-    volumes:
-        - ./:/picsome
+      container_name: "picsome"
+      build: .
+      volumes:
+      - ./:/picsome
+      - /picsome/node_modules
+      ports:
+        - '3000:3000'
+      stdin_open: true
+      tty: true
