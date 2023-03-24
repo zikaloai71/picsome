@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../AppContext';
 import CartItem from '../components/CartItem';
 
 export default function Cart() {
   const [buttonText, setButtonText] = useState("Place Order")
-  const { cartItems, emptyCart } = useContext(AppContext);
+  const { cartItems,emptyCart } = useContext(AppContext);
+ 
 
   const cartItemElements = cartItems.map(item => (
     <CartItem key={item.id} item={item} />
@@ -33,7 +34,7 @@ export default function Cart() {
       {cartItems.length > 0 ? <div className="order-button">
         <button onClick={placeOrder
         }>{buttonText}</button>
-      </div> : <p>You have no items in you cart</p>}
+      </div> : <p>You have no cart Items in you cart</p>}
     </main>
   )
 }

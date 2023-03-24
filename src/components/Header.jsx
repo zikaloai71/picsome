@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom"
 import { AppContext } from '../AppContext'
 export default function Header() {
   const { cartItems } = useContext(AppContext)
-
   return (
     <header>
       <h2><NavLink  to="/">Pic Some</NavLink></h2>

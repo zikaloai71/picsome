@@ -1,50 +1,57 @@
-import React, { useState ,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const AppContext = React.createContext();
 
 function AppContextProvider(props) {
-  const[allPhotos,setAllPhotos]=useState([]);
-  const[cartItems,setCartItems]=useState([])
+  const [allPhotos, setAllPhotos] = useState([]);
+  const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("Cart")) || []);
+  const [favoriteList,setFavoriteList] = useState(JSON.parse(localStorage.getItem("favorites")) || [])
   const url = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch(url)
-        .then((response) => response.json())
-        .then((data) => setAllPhotos(data));
+      .then((response) => response.json())
+      .then((data) => setAllPhotos(data));
+  }, [])
 
-  },[])
+  useEffect(()=>{
+    localStorage.setItem("Cart", JSON.stringify(cartItems))
+  },[cartItems])
 
-  function toggleCart(img , isOrdered){
-    if(isOrdered){
-     setCartItems(prevItems => prevItems.filter(item=> item.id !== img.id))
+  useEffect(()=>{
+     localStorage.setItem("favorites",JSON.stringify(favoriteList))
+  },[favoriteList])
+
+
+
+  function toggleCart(img, isOrdered) {
+    if (isOrdered) {
+      setCartItems(prevItems => prevItems.filter(item => item.id !== img.id))
     }
-    else{
-      setCartItems(prevItem=>[...prevItem,img])
+    else {
+      setCartItems(prevItem => [...prevItem, img])
     }
   }
 
-  function emptyCart(){
+  function emptyCart() {
     setCartItems([]);
+    localStorage.removeItem("Cart")
   }
 
-  function toggleFavorite(id){
-    const updatedArr = allPhotos.map(photo => {
-      if(photo.id === id) {
-          return {
-              ...photo,
-              isFavorite: !photo.isFavorite
-          }
-      }
-      return photo
-  })
-   setAllPhotos(updatedArr)
+  function toggleFavorite(img , isFavorite) {
+    if (isFavorite) {
+      setFavoriteList(prevItems => prevItems.filter(item => item.id !== img.id))
+    }
+    else {
+      setFavoriteList(prevItem => [...prevItem, img])
+    }
   }
-
+  
   return (
-    <AppContext.Provider value={{allPhotos , toggleFavorite ,toggleCart , cartItems ,emptyCart}}>
-        {props.children}
+    <AppContext.Provider value={{ allPhotos, toggleFavorite,favoriteList, toggleCart, cartItems, emptyCart }}>
+      {props.children}
     </AppContext.Provider>
   )
 }
 
-export {AppContextProvider,AppContext}
+export { AppContextProvider, AppContext }

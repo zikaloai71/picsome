@@ -6,9 +6,9 @@ import { AppContext } from '../AppContext'
 
 export default function Photos() {
 
-  const{allPhotos} = useContext(AppContext)
+const{allPhotos} = useContext(AppContext)
 
-  const photoElements = allPhotos.map((photo,i)=>(
+const photoElements = allPhotos.map((photo,i)=>(
   <Image key={photo.id} img={photo} className={getClass(i)}></Image>
   ))
 
