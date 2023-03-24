@@ -20,7 +20,7 @@ COPY . .
 # Expose port
 EXPOSE 3000
 
-
+RUN chmod -R 777 /picsome/node_modules
 
 # Start app
 CMD ["npm", "run", "dev"]
